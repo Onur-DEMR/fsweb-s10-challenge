@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, NavLink } from "react-router-dom";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import Img from "./assets/gratitude.jpg";
+import { useDispatch } from "react-redux";
+import { getInitialData } from "./actions";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInitialData());
+  }, []);
   return (
     <div>
       <div className="bg-white shadow mb-8">
@@ -13,26 +22,34 @@ export default function App() {
             to="/"
             exact
             className="p-4 pb-3 tracking-tighter"
-            activeClassName="text-amber-600"
-          >
+            activeClassName="text-amber-600">
             Anasayfa
           </NavLink>
           <NavLink
             to="/notlar"
             className="p-4 pb-3 tracking-tighter"
-            activeClassName="text-amber-600"
-          >
+            activeClassName="text-amber-600">
             Tüm Notlar
           </NavLink>
           <NavLink
             to="/yeni-not"
             className="p-4 pb-3 tracking-tighter"
-            activeClassName="text-amber-600"
-          >
+            activeClassName="text-amber-600">
             Yeni Not
           </NavLink>
         </nav>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"></ToastContainer>
       <Switch>
         <Route exact path="/">
           <div className="max-w-xl mx-auto px-4 pb-8">
